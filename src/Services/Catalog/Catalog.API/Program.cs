@@ -23,7 +23,7 @@ namespace Catalog.API
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .UseContentRoot("Pics")
+                //.UseContentRoot("Pics")
                 ;
             return host;
         }
