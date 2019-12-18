@@ -9,6 +9,7 @@ using Catalog.API.Model;
 using Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Catalog.API.Controllers
@@ -18,14 +19,14 @@ namespace Catalog.API.Controllers
     public class CatalogController : ControllerBase
     {
         private readonly CatalogContext _catalogContext;
-        private readonly CatalogSettings _settings;
+        private readonly IConfiguration _configuration;
         //private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
 
-        public CatalogController(CatalogContext context, IOptionsSnapshot<CatalogSettings> settings)
+        public CatalogController(CatalogContext context, IConfiguration  configuration)
         {
             _catalogContext = context ?? throw new ArgumentNullException(nameof(context));
             //_catalogIntegrationEventService = catalogIntegrationEventService ?? throw new ArgumentNullException(nameof(catalogIntegrationEventService));
-            _settings = settings.Value;
+            _configuration = configuration;
 
             context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
@@ -108,10 +109,10 @@ namespace Catalog.API.Controllers
 
             var item = await _catalogContext.CatalogItems.SingleOrDefaultAsync(ci => ci.Id == id);
 
-            var baseUri = _settings.PicBaseUrl;
-            var azureStorageEnabled = _settings.AzureStorageEnabled;
+            var baseUri = _configuration["PicBaseUrl"];
+            
 
-            item.FillProductUrl(baseUri, azureStorageEnabled: azureStorageEnabled);
+            item.FillProductUrl(baseUri);
 
             if (item != null)
             {
@@ -294,12 +295,12 @@ namespace Catalog.API.Controllers
 
         private List<CatalogItem> ChangeUriPlaceholder(List<CatalogItem> items)
         {
-            var baseUri = _settings.PicBaseUrl;
-            var azureStorageEnabled = _settings.AzureStorageEnabled;
+            var baseUri = _configuration["PicBaseUrl"];
+            
 
             foreach (var item in items)
             {
-                item.FillProductUrl(baseUri, azureStorageEnabled: azureStorageEnabled);
+                item.FillProductUrl(baseUri);
             }
 
             return items;

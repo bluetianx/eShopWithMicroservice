@@ -5,13 +5,11 @@ namespace Catalog.API.Extensions
     
         public static class CatalogItemExtensions
         {
-            public static void FillProductUrl(this CatalogItem item, string picBaseUrl, bool azureStorageEnabled)
+            public static void FillProductUrl(this CatalogItem item, string picBaseUrl)
             {
                 if (item != null)
                 {
-                    item.PictureUri = azureStorageEnabled
-                        ? picBaseUrl + item.PictureFileName
-                        : picBaseUrl.Replace("[0]", item.Id.ToString());
+                    item.PictureUri = picBaseUrl.Replace("[0]", item.Id.ToString());
                 }
             }
         }

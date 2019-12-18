@@ -17,11 +17,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Pics\*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  
 
   <ItemGroup>
     <Content Update="appsettings.json">

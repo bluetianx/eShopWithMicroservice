@@ -55,9 +55,9 @@ namespace Catalog.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

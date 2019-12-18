@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -21,9 +22,10 @@ namespace Catalog.API
             var host=Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                        .UseWebRoot("wwwroot");
                 })
-                //.UseContentRoot("Pics")
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 ;
             return host;
         }
