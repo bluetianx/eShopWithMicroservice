@@ -3,3 +3,4 @@
 src/Services/Catalog/Catalog.API/obj
 /src/Services/Catalog/Catalog.API/bin/
 /.idea/
+/src/BuildingBlocks/EventBus/EventBus/obj/
