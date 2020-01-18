@@ -19,4 +19,3 @@ namespace DefaultNamespace
             where T : IntegrationEvent;
     }
 }
-}

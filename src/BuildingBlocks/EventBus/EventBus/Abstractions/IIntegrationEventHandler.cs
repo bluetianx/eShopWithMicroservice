@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace DefaultNamespace
 {
     public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler 
