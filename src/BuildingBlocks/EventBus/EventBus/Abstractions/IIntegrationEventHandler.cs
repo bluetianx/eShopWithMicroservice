@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using EventBus.Events;
 
 namespace DefaultNamespace
 {

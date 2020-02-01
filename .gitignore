@@ -5,3 +5,5 @@ src/Services/Catalog/Catalog.API/obj
 /.idea/
 /src/BuildingBlocks/EventBus/EventBus/obj/
 /src/BuildingBlocks/EventBus/EventBus/bin/
+/src/BuildingBlocks/EventBus/EventBusRabbitMQ/bin/
+/src/BuildingBlocks/EventBus/EventBusRabbitMQ/obj/

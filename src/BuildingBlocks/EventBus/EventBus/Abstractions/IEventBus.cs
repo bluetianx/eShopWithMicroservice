@@ -1,3 +1,5 @@
+using EventBus.Events;
+
 namespace DefaultNamespace
 {
     public interface IEventBus
