@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DefaultNamespace;
+using EventBus.Abstractions;
 using EventBus.Events;
 using static EventBus.InMemoryEventBusSubscriptionsManager;
 namespace EventBus

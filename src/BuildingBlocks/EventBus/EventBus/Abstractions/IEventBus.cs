@@ -1,6 +1,6 @@
 using EventBus.Events;
 
-namespace DefaultNamespace
+namespace EventBus.Abstractions
 {
     public interface IEventBus
     {

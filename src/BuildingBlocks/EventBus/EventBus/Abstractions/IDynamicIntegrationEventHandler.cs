@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace DefaultNamespace
+namespace EventBus.Abstractions
 {
     public interface IDynamicIntegrationEventHandler
     {

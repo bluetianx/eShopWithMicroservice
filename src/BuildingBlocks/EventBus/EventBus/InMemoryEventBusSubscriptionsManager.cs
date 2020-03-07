@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace;
+using EventBus.Abstractions;
 using EventBus.Events;
 
 namespace EventBus
