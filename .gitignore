@@ -7,3 +7,5 @@ src/Services/Catalog/Catalog.API/obj
 /src/BuildingBlocks/EventBus/EventBus/bin/
 /src/BuildingBlocks/EventBus/EventBusRabbitMQ/bin/
 /src/BuildingBlocks/EventBus/EventBusRabbitMQ/obj/
+/src/BuildingBlocks/EventBus/EventBus.Test/bin/
+/src/BuildingBlocks/EventBus/EventBus.Test/obj/
