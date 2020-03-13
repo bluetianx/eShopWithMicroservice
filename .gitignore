@@ -9,3 +9,7 @@ src/Services/Catalog/Catalog.API/obj
 /src/BuildingBlocks/EventBus/EventBusRabbitMQ/obj/
 /src/BuildingBlocks/EventBus/EventBus.Test/bin/
 /src/BuildingBlocks/EventBus/EventBus.Test/obj/
+/src/Services/Identity/IdentityTest/bin/
+/src/Services/Identity/IdentityTest/obj/
+/src/Services/Identity/Identity/bin/
+/src/Services/Identity/Identity/obj/
