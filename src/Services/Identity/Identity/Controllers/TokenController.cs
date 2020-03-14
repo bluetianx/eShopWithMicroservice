@@ -40,6 +40,7 @@ namespace Identity.Controllers
                 {JwtRegisteredClaimNames.Iat, now},
                 {JwtRegisteredClaimNames.Nbf, now},
                 {JwtRegisteredClaimNames.Exp, exp},
+                {"roles",new string[]{"Admin","user"}},
                 {JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")}
             };
             var jwt = new JwtSecurityToken(jwtHeader, payload);
@@ -48,13 +49,13 @@ namespace Identity.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public ActionResult<string> Get()
         {
             var x509 = new X509Certificate2("eshopIdentityPub.cer");
             var certStr = Convert.ToBase64String(x509.Export(X509ContentType.Cert));
             string userName = User.Identity.Name;
-            return Ok(certStr);
+            return Ok(userName);
         }
     }
 }

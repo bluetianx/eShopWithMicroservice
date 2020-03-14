@@ -39,15 +39,20 @@ namespace Identity
                 .AddJwtBearer(x =>
                 {
                     x.RequireHttpsMetadata = false;
-                    x.SaveToken = false;
-                    SecurityKey c = publicKey;
-                    
+                    x.SaveToken = true;
+                    x.ClaimsIssuer = "eshopIdentity";
+                    /*x.Events.OnAuthenticationFailed += (context) =>
+                    {
+                        return Task.CompletedTask;
+                    };*/
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = false,
+                        ValidateIssuerSigningKey = true,
                         IssuerSigningKey = publicKey,
-                        ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateIssuer = true,
+                        ValidateAudience = false,
+                        ValidIssuer = "eshopIdentity"
+
                     };
                 });
         }
@@ -63,7 +68,7 @@ namespace Identity
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
