@@ -1,6 +1,8 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -29,19 +31,30 @@ namespace Identity.Controllers
             var exp = (long)(new TimeSpan(expires.Ticks - centuryBegin.Ticks).TotalSeconds);
             var now = (long)(new TimeSpan(nowUtc.Ticks - centuryBegin.Ticks).TotalSeconds);
             var issuer = "eshopIdentity";
+            
             var payload = new JwtPayload
             {
-                {"sub", "test"},
-                {"unique_name", "test"},
-                {"iss", issuer},
-                {"iat", now},
-                {"nbf", now},
-                {"exp", exp},
-                {"jti", Guid.NewGuid().ToString("N")}
+                {JwtRegisteredClaimNames.Sub, "test"},
+                {JwtRegisteredClaimNames.UniqueName, "test"},
+                {JwtRegisteredClaimNames.Iss, issuer},
+                {JwtRegisteredClaimNames.Iat, now},
+                {JwtRegisteredClaimNames.Nbf, now},
+                {JwtRegisteredClaimNames.Exp, exp},
+                {JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")}
             };
             var jwt = new JwtSecurityToken(jwtHeader, payload);
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
             return Ok(token);
+        }
+
+        [HttpGet]
+        //[Authorize]
+        public ActionResult<string> Get()
+        {
+            var x509 = new X509Certificate2("eshopIdentityPub.cer");
+            var certStr = Convert.ToBase64String(x509.Export(X509ContentType.Cert));
+            string userName = User.Identity.Name;
+            return Ok(certStr);
         }
     }
 }
