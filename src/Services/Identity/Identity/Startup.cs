@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Identity.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+
 namespace Identity
 {
     public class Startup
@@ -28,6 +31,10 @@ namespace Identity
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<IdentityDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration["ConnectionString"]);
+                });
             var x509 = new X509Certificate2("eshopIdentityPub.cer");
             var rsa = x509.GetRSAPublicKey();
             var publicKey = new RsaSecurityKey(rsa);
@@ -66,7 +73,7 @@ namespace Identity
             }
 
             //app.UseHttpsRedirection();
-
+            app.Use((context, next) => { return next.Invoke(); });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
