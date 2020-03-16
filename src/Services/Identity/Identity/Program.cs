@@ -24,6 +24,7 @@ namespace Identity
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 // Filter out ASP.NET Core infrastructre logs that are Information and below
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning) 
+                //.WriteTo.Console(restrictedToMinimumLevel:LogEventLevel.Information )
                 .Enrich.FromLogContext()
                 .CreateLogger();
             try

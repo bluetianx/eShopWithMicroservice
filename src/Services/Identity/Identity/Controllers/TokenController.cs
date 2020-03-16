@@ -5,6 +5,7 @@ using System.Text;
 using Identity.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,8 +19,12 @@ namespace Identity.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        
-        
+        private ILogger<TokenController> Logger;
+
+        public TokenController(ILogger<TokenController> logger)
+        {
+            Logger = logger;
+        }
         /// <summary>
         /// 获取一个token
         /// </summary>
@@ -29,6 +34,7 @@ namespace Identity.Controllers
         public ActionResult<string> CreateToken([FromBody] UserModel userInfo)
         {
             //IdentityModelEventSource.ShowPII = true;
+            Logger.LogDebug("收到token创建请求，请求信息为：{userInfo}",userInfo);
             var x509 = new X509Certificate2("eshopIdentity.pfx","123456");
             var rsa = x509.GetRSAPrivateKey();
             var privateKey = new RsaSecurityKey(rsa);
@@ -54,6 +60,7 @@ namespace Identity.Controllers
             };
             var jwt = new JwtSecurityToken(jwtHeader, payload);
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+            Logger.LogDebug("颁发一个token：{token}",token);
             return Ok(token);
         }
 
