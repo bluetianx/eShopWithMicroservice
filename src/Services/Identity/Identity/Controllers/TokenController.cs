@@ -2,6 +2,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Identity.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
@@ -10,14 +11,22 @@ using Microsoft.IdentityModel.Tokens;
 namespace Identity.Controllers
 {
     
+    /// <summary>
+    /// 用户token管理
+    /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {
         
         
+        /// <summary>
+        /// 获取一个token
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult<string> CreateToken([FromBody] string userId)
+        public ActionResult<string> CreateToken([FromBody] UserModel userInfo)
         {
             //IdentityModelEventSource.ShowPII = true;
             var x509 = new X509Certificate2("eshopIdentity.pfx","123456");
